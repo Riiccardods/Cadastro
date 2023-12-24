@@ -1,0 +1,21 @@
+﻿@model IEnumerable<cadastro10.Models.Pessoa>
+
+<h2>Listagem de Pessoas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pessoa in Model)
+        {
+            <tr>
+                <td>@pessoa.Id</td>
+                <td>@pessoa.Nome</td>
+            </tr>
+        }
+    </tbody>
+</table>

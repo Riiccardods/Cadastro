@@ -2,6 +2,7 @@
 using cadastro10.Models;
 using cadastro10.Data;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore; // Certifique-se de incluir esta diretiva
 
 namespace cadastro10.Controllers
 {
@@ -22,7 +23,6 @@ namespace cadastro10.Controllers
             {
                 ViewBag.SuccessMessage = TempData["SuccessMessage"];
             }
-
             return View();
         }
 
@@ -35,14 +35,17 @@ namespace cadastro10.Controllers
             {
                 _context.Add(pessoa);
                 await _context.SaveChangesAsync();
-
-                // Armazena a mensagem de sucesso no TempData
                 TempData["SuccessMessage"] = "Cadastro realizado com sucesso!";
-
-                // Redireciona de volta para a View de Create
                 return RedirectToAction(nameof(Create));
             }
             return View(pessoa);
+        }
+
+        // GET: Pessoas/List
+        public async Task<IActionResult> List()
+        {
+            var pessoasList = await _context.Pessoas.OrderByDescending(p => p.Id).ToListAsync();
+            return View(pessoasList);
         }
     }
 }
